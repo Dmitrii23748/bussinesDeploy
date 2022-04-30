@@ -1,0 +1,35 @@
+.paginateBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.paginateList {
+  display: flex;
+  align-items: center;
+}
+.paginateBtn {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 137.69%;
+  margin: 0 10px;
+  color: #474955;
+}
+
+.activeLink {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 137.69%;
+  color: #7ebc3c;
+  margin: 0 10px;
+}
+
+.paginateButtons {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 137.69%;
+  color: #474955;
+}

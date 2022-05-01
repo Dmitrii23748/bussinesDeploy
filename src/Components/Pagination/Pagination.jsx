@@ -54,6 +54,10 @@ const Pagination = ({
         Далее
       </Link>
     </div>
+
+
+
+
   );
 };
 

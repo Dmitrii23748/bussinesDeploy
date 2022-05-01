@@ -57,6 +57,10 @@ const Table = () => {
     setDirectionSort(!directionSort);
     setColumn(params);
   };
+  
+  
+
+
 
   return (
     <>

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sortPostsDown, sortPostsUp } from "../../redux/slices/postSlice";
 import Search from "../Search/Search";
 import Pagination from "../Pagination/Pagination";
 import TablePosts from "../TablePosts/TablePosts";
@@ -7,28 +8,27 @@ import Arrow from "../Arrow/Arrow";
 import style from "./Table.module.css";
 
 const Table = () => {
-  const { allPosts, status, error } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+  const { allPosts, valueInput, status, error } = useSelector(
+    (state) => state.posts
+  );
 
-  const [allPostsState, setAllPostState] = useState([]);
   const [directionSort, setDirectionSort] = useState(true);
   const [column, setColumn] = useState("id");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPage] = useState(10);
 
-  const [searchItem, setSearchItem] = useState("");
-
-  const filtersArrayData = allPostsState.filter((post) => {
+  const filtersArrayData = allPosts.filter((post) => {
     return (
-      post.title.toLowerCase().includes(searchItem.toLowerCase()) ||
-      post.body.toLowerCase().includes(searchItem.toLowerCase()) ||
-      String(post.id).includes(searchItem)
+      post.title.toLowerCase().includes(valueInput.toLowerCase()) ||
+      post.body.toLowerCase().includes(valueInput.toLowerCase()) ||
+      String(post.id).includes(valueInput)
     );
   });
 
   const lastPostIndex = currentPage * postsPage;
   const firstPostIndex = lastPostIndex - postsPage;
-  const currentPost = filtersArrayData.slice(firstPostIndex, lastPostIndex);
 
   const paginate = (pageNum) => setCurrentPage(pageNum);
 
@@ -49,28 +49,18 @@ const Table = () => {
   };
 
   const sortDate = (params) => {
-    let sortDateArray;
     if (directionSort) {
-      sortDateArray = allPostsState.sort((a, b) => {
-        return a[params] < b[params] ? 1 : -1;
-      });
+      dispatch(sortPostsUp(params));
     } else {
-      sortDateArray = allPostsState.sort((a, b) => {
-        return a[params] > b[params] ? 1 : -1;
-      });
+      dispatch(sortPostsDown(params));
     }
-    setAllPostState(sortDateArray);
     setDirectionSort(!directionSort);
     setColumn(params);
   };
 
-  useEffect(() => {
-    setAllPostState([...allPosts]);
-  }, [allPosts]);
-
   return (
     <>
-      <Search searchItem={searchItem} setSearchItem={setSearchItem} />
+      <Search />
       <div className={style.tableWrap}>
         <table className={style.table}>
           <thead>
@@ -97,10 +87,12 @@ const Table = () => {
           </thead>
           <tbody>
             {status === "resolved" &&
-              allPostsState &&
-              currentPost.map((post) => {
-                return <TablePosts post={post} key={post.id} />;
-              })}
+              allPosts &&
+              filtersArrayData
+                .slice(firstPostIndex, lastPostIndex)
+                .map((post) => {
+                  return <TablePosts post={post} key={post.id} />;
+                })}
             {status === "rejected" && (
               <tr>
                 <td>{error}</td>

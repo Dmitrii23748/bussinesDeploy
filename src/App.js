@@ -19,6 +19,13 @@ function App() {
     Number(local.pathname.slice(1, 2)) + 1
   );
 
+useEffect(() => {
+  setNumberPage(local.pathname.slice(1, 2))
+}, [])
+
+console.log(Number(local.pathname.slice(1, 2)) + 1);
+console.log(numberPage);
+
   const nextPageClick = () => {
     setNumberPage((prev) => Number(prev) + 1);
     if (numberPage === 9) {

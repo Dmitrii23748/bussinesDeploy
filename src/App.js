@@ -101,7 +101,7 @@ function App() {
                 return (
                   <Route
                     key={index}
-                    path={`/${page}`}
+                    path={`/${local.pathname.slice(1, 2)}`}
                     element={
                       <PageOne
                         filtersArrayData={filtersArrayData}

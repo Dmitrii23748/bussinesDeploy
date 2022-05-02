@@ -15,9 +15,8 @@ function App() {
 
   const local = useLocation();
 
-  // const [pageBoole, setPageBool] = useState(true);
   const [numberPage, setNumberPage] = useState(
-    Number(local.pathname.slice(1, 2))
+    Number(local.pathname.slice(1, 2)) + 1
   );
 
   const nextPageClick = () => {
@@ -33,7 +32,6 @@ function App() {
       setNumberPage(1);
     }
   };
- 
 
   const filtersArrayData = allPosts.filter((post) => {
     return (
@@ -116,7 +114,11 @@ function App() {
           </table>
         </div>
         <div className={style.paginateBlock}>
-          <Link className={style.paginateButtons} to={`/${String(numberPage)}`} onClick={prevPageClick}>
+          <Link
+            className={style.paginateButtons}
+            to={`/${String(numberPage)}`}
+            onClick={prevPageClick}
+          >
             Назад
           </Link>
           <ul className={style.paginateList}>
@@ -136,7 +138,11 @@ function App() {
               );
             })}
           </ul>
-          <Link className={style.paginateButtons} to={`/${String(numberPage)}`} onClick={nextPageClick}>
+          <Link
+            className={style.paginateButtons}
+            to={`/${String(numberPage)}`}
+            onClick={nextPageClick}
+          >
             Вперёд
           </Link>
         </div>

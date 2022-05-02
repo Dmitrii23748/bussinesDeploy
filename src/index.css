@@ -89,3 +89,13 @@ a {
   max-width: 1077px;
   padding: 0 10px;
 }
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+.table td {
+  text-align: left;
+  border: 1px solid #ddd;
+}

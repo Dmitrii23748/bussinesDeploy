@@ -7,6 +7,7 @@ import style from "./App.module.css";
 import MainPages from "./Pages/MainPages";
 import PageOne from "./Pages/PageOne";
 import Search from "./Components/Search/Search";
+import PageSearch from "./Pages/PageSearch";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,8 +19,6 @@ function App() {
   const [numberPage, setNumberPage] = useState(
     Number(local.pathname.slice(1, 2)) + 1
   );
-
-
 
   const nextPageClick = () => {
     setNumberPage((prev) => Number(prev) + 1);
@@ -89,64 +88,70 @@ function App() {
   return (
     <div className="wrapper">
       <div className="container">
-        <Search />
         <div className={style.tableWrap}>
-          <table className={style.table}>
-            <Routes>
-              <Route
-                path="/"
-                element={<MainPages filtersArrayData={filtersArrayData} />}
-              />
-              {arrLink.map((page, index) => {
-                return (
+          <Search />
+          {valueInput ? (
+            <PageSearch filtersArrayData={filtersArrayData} />
+          ) : (
+            <>
+              <table className={style.table}>
+                <Routes>
                   <Route
-                    key={index}
-                    path={`/${local.pathname.slice(1, 2)}`}
-                    element={
-                      <PageOne
-                        filtersArrayData={filtersArrayData}
-                        firstNum={firstNum}
-                        secondNum={secondNum}
-                      />
-                    }
+                    path="/"
+                    element={<MainPages filtersArrayData={filtersArrayData} />}
                   />
-                );
-              })}
-            </Routes>
-          </table>
-        </div>
-        <div className={style.paginateBlock}>
-          <Link
-            className={style.paginateButtons}
-            to={`/${String(numberPage)}`}
-            onClick={prevPageClick}
-          >
-            Назад
-          </Link>
-          <ul className={style.paginateList}>
-            {arrLink.map((link, index) => {
-              return (
-                <li className={style.paginateItemLi} key={index}>
-                  <NavLink
-                    to={`/${link}`}
-                    className={({ isActive }) =>
-                      isActive ? style.activeLink : style.paginateBtn
-                    }
-                    onClick={() => setNumberPage(link)}
-                  >
-                    {link}
-                  </NavLink>
-                </li>
-              );
-            })}
-          </ul>
-          <Link
-            className={style.paginateButtons}
-            to={`/${String(numberPage)}`}
-            onClick={nextPageClick}
-          >
-            Вперёд
-          </Link>
+                  {arrLink.map((page, index) => {
+                    return (
+                      <Route
+                        key={index}
+                        path={`/${page}`}
+                        element={
+                          <PageOne
+                            filtersArrayData={filtersArrayData}
+                            firstNum={firstNum}
+                            secondNum={secondNum}
+                          />
+                        }
+                      />
+                    );
+                  })}
+                </Routes>
+              </table>
+              <div className={style.paginateBlock}>
+                <Link
+                  className={style.paginateButtons}
+                  to={`/${String(numberPage)}`}
+                  onClick={prevPageClick}
+                >
+                  Назад
+                </Link>
+                <ul className={style.paginateList}>
+                  {arrLink.map((link, index) => {
+                    return (
+                      <li className={style.paginateItemLi} key={index}>
+                        <NavLink
+                          to={`/${link}`}
+                          className={({ isActive }) =>
+                            isActive ? style.activeLink : style.paginateBtn
+                          }
+                          onClick={() => setNumberPage(link)}
+                        >
+                          {link}
+                        </NavLink>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <Link
+                  className={style.paginateButtons}
+                  to={`/${String(numberPage)}`}
+                  onClick={nextPageClick}
+                >
+                  Вперёд
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

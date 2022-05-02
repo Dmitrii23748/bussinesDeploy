@@ -1,0 +1,44 @@
+.tableWrap {
+    overflow-x: hidden;
+  }
+  .table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+  }
+  .table td {
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+
+  .paginateBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+  }
+  .paginateList {
+    display: flex;
+    align-items: center;
+  }
+
+  .activeLink {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 137.69%;
+    color: #7ebc3c;
+  }
+  
+  .paginateButtons {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 137.69%;
+    color: #474955;
+  }
+
+  .paginateItemLi {
+    margin: 0 10px;
+  }
+  

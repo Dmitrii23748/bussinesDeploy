@@ -37,7 +37,7 @@ const postSlice = createSlice({
     },
     stateInput: (state, action) => {
       state.valueInput = action.payload;
-    }
+    },
   },
   extraReducers: {
     [getPosts.fulfilled]: (state) => {
